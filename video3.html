@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Библиотека опыта амбассадоров — Как начать с нуля дважды</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --bg-soft:#F5F6F7; --bg-muted:#EDEEF0; --ink:#1A1A1A; --ink-2:#4A4D52; --ink-3:#8A8E94; --line:#E4E6E9; --accent:#C4F542; --accent-strong:#B8E83D; --accent-ink:#0F1A00; --font-display:'Unbounded',ui-sans-serif,system-ui,sans-serif; --font-body:'Manrope',ui-sans-serif,system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace; --radius-sm:10px; --radius-md:16px; --radius-lg:24px; --radius-pill:999px; --shadow-sm:0 1px 2px rgba(16,18,20,.04),0 1px 1px rgba(16,18,20,.03); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: 56px 32px 48px; }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; display: block; }
+  .title-block { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+  .stamp { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; margin-top: 10px; }
+  .title-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
+  .hero-lead { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+  .chip-dot.accent { background: var(--accent); }
+
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 32px; }
+  .nav-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2px; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--ink-2); border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; border-radius: 8px 8px 0 0; }
+  .nav-btn:hover { color: var(--ink); background: var(--bg-muted); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); background: transparent; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--accent-ink); transition: background .15s, color .15s; }
+  .nav-btn.active .nav-num { background: var(--accent); color: var(--accent-ink); }
+
+  .page-wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 100px; }
+  .section { padding-top: 60px; }
+  .section-alt { margin: 48px -32px 0; padding: 48px 32px 8px; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-alt + .section { padding-top: 60px; }
+  @media (max-width: 640px) { .section-alt { margin: 48px -20px 0; padding: 40px 20px 8px; } }
+  .section-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+  .section-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--ink-3); flex-shrink: 0; letter-spacing: 0; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .section-title-hl { background-image: linear-gradient(transparent 52%, var(--accent) 52%, var(--accent) 94%, transparent 94%); padding: 0 3px; }
+  .section-hr { height: 1px; background: var(--line); border: none; margin: 20px 0 28px; }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card h3 { font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 10px; line-height: 1.3; }
+  .card p, .card li { color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+
+  .key-point { display: flex; gap: 16px; background: var(--bg-soft); border-radius: var(--radius-md); padding: 18px 22px; border-left: 3px solid var(--accent); margin-bottom: 16px; }
+  .key-point-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+  .key-point p { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+  .formula { background: var(--ink); color: #fff; border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 16px; }
+  .formula-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8E94; margin-bottom: 10px; }
+  .formula-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .formula-step { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
+  .formula-arrow { color: var(--accent); font-family: var(--font-mono); font-size: 16px; }
+
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .compare-card { border-radius: var(--radius-md); padding: 20px; font-size: 14px; line-height: 1.6; }
+  .compare-bad { background: #FFF5F5; border: 1px solid #FCCACA; }
+  .compare-good { background: #F5FEE0; border: 1px solid #D4F097; }
+  .compare-header { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .compare-bad .compare-header { color: #C03030; }
+  .compare-good .compare-header { color: #4A8000; }
+  .compare-card p { color: #444; margin-bottom: 8px; }
+  .compare-card p:last-child { margin-bottom: 0; }
+
+  .headlines-list { list-style: none; display: grid; gap: 8px; margin-bottom: 16px; }
+  .headlines-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--bg-soft); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; color: var(--ink); border: 1px solid var(--line); }
+  .headlines-list li::before { content: '—'; font-family: var(--font-mono); color: var(--accent-strong); font-weight: 700; flex-shrink: 0; }
+
+  .steps-list { list-style: none; counter-reset: step; display: grid; gap: 0; }
+  .steps-list li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-3); padding-top: 2px; }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  .callout-warn { background: #FFFBEB; border: 1px solid #F0D080; border-left: 3px solid #E0A000; border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: #5A4500; margin-bottom: 16px; line-height: 1.6; }
+  .callout-warn strong { color: #3A2E00; }
+
+  .secrets-grid { display: grid; gap: 12px; }
+  .secret-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: start; }
+  .secret-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .secret-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .secret-desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .glossary { display: grid; gap: 10px; }
+  .glossary-item { padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .glossary-term { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+  .glossary-def { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .divider { display: flex; align-items: center; gap: 14px; margin: 24px 0; color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat-card { padding: 18px 20px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--ink); }
+  .stat-label { font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+
+  .hl { background: var(--accent); color: var(--accent-ink); padding: 1px 7px; border-radius: 5px; font-weight: 600; }
+  .hl-line { display: inline; background-image: linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%); padding: 0 2px; font-weight: 600; }
+
+  /* ——— ЗАДАНИЕ НА РЕФЛЕКСИЮ ——— */
+  .reflection { background: #E8F5BD; color: var(--accent-ink); border-radius: var(--radius-lg); padding: 36px; margin-top: 32px; box-shadow: 0 4px 16px rgba(196,245,66,0.20); }
+  .reflection-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); opacity: 0.7; margin-bottom: 14px; font-weight: 700; }
+  .reflection h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.2; margin-bottom: 18px; color: var(--accent-ink); letter-spacing: -0.01em; }
+  .reflection p { color: var(--accent-ink); font-size: 15px; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+  .reflection .reflection-questions { list-style: none; margin: 0 0 18px 0; padding: 0; display: grid; gap: 12px; }
+  .reflection .reflection-questions li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: var(--accent-ink); font-weight: 600; }
+  .reflection .reflection-questions li::before { content: '—'; font-family: var(--font-mono); font-weight: 700; color: var(--accent-ink); flex-shrink: 0; padding-top: 1px; }
+  .reflection .reflection-hint { font-size: 14px; line-height: 1.5; color: var(--accent-ink); opacity: 0.75; font-weight: 500; margin-left: 24px; margin-top: -4px; margin-bottom: 14px; }
+  .reflection .reflection-note { background: rgba(15,26,0,0.08); border-radius: var(--radius-md); padding: 18px 22px; margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--accent-ink); font-weight: 500; }
+  .reflection .reflection-note strong { font-weight: 700; }
+
+  .section-alt .card,
+  .section-alt .stat-card { background: var(--bg); }
+  .section-alt .secret-item { background: var(--bg); }
+  .section-alt .glossary-item { background: var(--bg); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 32px; }
+    .page-wrap { padding: 0 20px 80px; }
+    .nav-bar { padding: 0 20px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .title-block { grid-template-columns: 1fr; gap: 12px; }
+    .stamp { margin-top: 0; }
+    .formula-steps { flex-direction: column; align-items: flex-start; }
+    .reflection { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля</span>
+    <div class="title-block">
+      <span class="stamp">Библиотека опыта амбассадоров</span>
+      <span class="title-text">Как начать с нуля дважды</span>
+    </div>
+    <p class="hero-lead">Эльвира намеренно бросила блог с 80 тысячами подписчиков и начала заново. Без команды, без контент-плана, без постановочных съёмок. И выросла. Делится практикой, которая помогает справиться со страхом осуждения, когда кажется, что вокруг все смотрят.</p>
+    <div class="meta-chips">
+      <span class="chip"><span class="chip-dot accent"></span>Эльвира Рукосуева @elfcrochet — Блогер из села</span>
+      <span class="chip"><span class="chip-dot"></span>2 раза с нуля</span>
+      <span class="chip"><span class="chip-dot"></span>80К → 100К+ во втором блоге</span>
+      <span class="chip"><span class="chip-dot"></span>Лайв-контент без команды</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navTo('intro')"><span class="nav-num">1</span> Главное</button>
+    <button class="nav-btn" onclick="navTo('two-starts')"><span class="nav-num">2</span> Два старта</button>
+    <button class="nav-btn" onclick="navTo('live')"><span class="nav-num">3</span> Лайв-контент</button>
+    <button class="nav-btn" onclick="navTo('fear')"><span class="nav-num">4</span> Страх осуждения</button>
+    <button class="nav-btn" onclick="navTo('start')"><span class="nav-num">5</span> Чем платить</button>
+    <button class="nav-btn" onclick="navTo('glossary')"><span class="nav-num">6</span> Глоссарий</button>
+    <button class="nav-btn" onclick="navTo('reflection')"><span class="nav-num">7</span> Рефлексия</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- СЕКЦИЯ 01: ГЛАВНОЕ -->
+  <section class="section" id="intro">
+    <div class="section-label"><span class="section-num">01</span>Главное</div>
+    <h2 class="section-title"><span class="section-title-hl">Аутентичность — самая крепкая основа стабильного роста</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Главное</div>
+      <p>Старый блог — не балласт, а опыт. Бросить его и начать заново — нормальное и осознанное решение, особенно когда из старой ниши хочется выйти. Главный ресурс блога — это вы сами.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">80К</div>
+        <div class="stat-label">подписчиков в первом, вязальном блоге — осознанно оставлен</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">100К+</div>
+        <div class="stat-label">в новом лайв-блоге, стабильная монетизация</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0</div>
+        <div class="stat-label">команды, продюсеров и контент-планов</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 02: ДВА СТАРТА -->
+  <section class="section" id="two-starts">
+    <div class="section-label"><span class="section-num">02</span>Два старта</div>
+    <h2 class="section-title"><span class="section-title-hl">Два блога — две разные жизни</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Творческое выгорание — естественный этап. Когда визуальные рамки становятся тесными, добавление «себя» в чужую (вязальную) аудиторию может не сработать. Лучше начать сначала, чем тянуть.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Блог 01 · Вязальный</div>
+      <h3>Хороший старт, узкая ниша</h3>
+      <p>Декрет → вязание на заказ → выкладки в Instagram*. За пару лет — 80К активной аудитории. Эльвира развивалась внутри ниши, всё получалось. Но визуальный контент со временем стал тесным — захотелось делиться собой: мыслями, переживаниями, бытом.</p>
+      <p style="margin-top: 8px;">Подписчики реагировали резко — они подписывались за вязание, не за «всё подряд». Это не их вина. <span class="hl-line">Аудитория ниши защищает нишу.</span></p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Блог 02 · Лайв с нуля</div>
+      <h3>Никакой роли эксперта — просто жизнь</h3>
+      <p>Эльвира не строила из себя эксперта. Просто делилась мыслями, переживаниями, бытом: лайф, семья, стройка, повседневность. Это сработало — люди приходили и подписывались, потому что чувствовали честность.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Был ли таргет</div>
+      <h3>Прошла обучение, добивалась 40 копеек за подписчика — но всё отрубили</h3>
+      <p>До блокировок Эльвира успела пройти обучение по рекламе и настраивала всё сама. Подписчик за 40 копеек, креативы брали в кейсы. Потом таргет отрубили — пришлось полностью перейти в органику. <span class="hl-line">И органика сработала</span> — потому что была база: лояльная аудитория, живой понятный контент.</p>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Это не было импульсивное решение.</strong> Эльвира знала, что придётся работать заново. Но возможность быть собой оказалась важнее набранной цифры. И в долгосрочной перспективе — окупилось ростом, доверием и монетизацией.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 03: ЛАЙВ-КОНТЕНТ -->
+  <section class="section section-alt" id="live">
+    <div class="section-label"><span class="section-num">03</span>Лайв-контент</div>
+    <h2 class="section-title"><span class="section-title-hl">Контент, который приводит, удерживает и монетизирует</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>Эльвира не делает контент-план. Не устраивает постановочных съёмок. Не любит снимать себя. Просто живёт и показывает то, что естественно вплетается в день.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что приводит подписчиков</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Рилсы с полезностью: рецепты, поделки с детьми</li>
+        <li>Душевный контент, который цепляет и задевает</li>
+        <li>Лайв-сторис без напряжения — просто день и моменты</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что удерживает подписчиков</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Честность — без игры в эксперта, которым не являешься</li>
+        <li>Последовательность — стабильный голос и ритм без рывков</li>
+        <li>Эмоциональный контакт — реакция на комментарии, отклик</li>
+      </ul>
+    </div>
+
+    <div class="divider">Что Эльвира тестировала за годы</div>
+
+    <div class="card">
+      <div class="card-label">Список — что пробовала и что вынесла</div>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Гивы</div>
+            <div class="step-desc">В первом блоге работали в своё время — приводили платежеспособную аудиторию. Сейчас эпоха гивов закончилась.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Таргет</div>
+            <div class="step-desc">До ограничений — крутые результаты, 40 копеек за подписчика. После — переход в органику. Не цепляйтесь за инструмент, цепляйтесь за результат.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Reels</div>
+            <div class="step-desc">Многие набирали миллионы просмотров и тысячи новых подписчиков. Главный двигатель роста в современном Instagram*.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Взаимопиар и реклама у других</div>
+            <div class="step-desc">Рабочий инструмент роста при правильном подборе партнёров — на уровне вашей аудитории и темы.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Запускные воронки на свой продукт</div>
+            <div class="step-desc">Эльвира делала визуальные мастер-классы, набирала группы до 900+ человек — всё на лайв-контенте, без агрессивного «купи».</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Сторис с личным участием</div>
+            <div class="step-desc">Главный канал доверия и связи. Не «продающие сторис», а просто включение себя в контекст.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Принцип тестирования.</strong> Соцсети постоянно меняются. Главное — не бояться адаптироваться и отказываться от того, что перестало работать. Ошибки — тоже опыт.
+    </div>
+
+    <div class="divider">Монетизация без насилия над собой</div>
+
+    <div class="card">
+      <div class="card-label">Этап 01 · Свой продукт</div>
+      <h3>Мастер-классы и совместники по вязанию</h3>
+      <p>Эльвира долго не отвечала рекламодателям — было некомфортно обсуждать цены и ТЗ. Она шла другим путём: визуальные мастер-классы, совместники, набор групп. Всё на лайв-контенте — люди шли за процессом.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 02 · Мастерская с мужем</div>
+      <h3>Деревянные изделия — продолжение лайва</h3>
+      <p>Позже открыли с мужем мастерскую деревянных изделий. Тоже органично вошло в лайв-контент: от семьи, от души. Хороший отклик и стабильные продажи.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 03 · Партнёрка FitStars</div>
+      <h3>Стабильный доход на личном примере</h3>
+      <p>Лучшие продажи получались, когда Эльвира тренировалась сама, показывала процесс и результаты до/после, подключала к тренировкам семью. Люди покупали, потому что <span class="hl-line">доверяли</span>.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Сейчас</div>
+      <h3>Реклама + партнёрка. Свой продукт — когда есть ресурс</h3>
+      <p>Основной доход — реклама и партнёрка. Личный продукт ставит на паузу, когда нет ресурса. <span class="hl-line">Не загоняет себя</span>: всё зависит от состояния, вдохновения и времени.</p>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 04: СТРАХ ОСУЖДЕНИЯ -->
+  <section class="section" id="fear">
+    <div class="section-label"><span class="section-num">04</span>Страх осуждения</div>
+    <h2 class="section-title"><span class="section-title-hl">Практика «плюшки vs риски потерять»</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>Эльвира живёт в селе, где все друг друга знают. Близкие сначала не поняли, зачем блог. Простая практика помогла перейти страх.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Упражнение «плюшки vs риски»</div>
+      <h3>Берёте лист бумаги — делите пополам</h3>
+      <p>Слева — <strong>«плюшки»</strong>, которые получите, если будете вести блог так, как хотите. Справа — что <strong>«рискуете потерять»</strong>, если этого не сделаете. Чем подробнее, тем лучше.</p>
+      <p style="margin-top: 8px;">Когда напишете оба столбика и сравните — ответ становится очевидным. У Эльвиры: <span class="hl-line">плюшек гораздо больше, чем рисков</span>.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <div class="compare-header">Внутренний голос страха</div>
+        <p><strong>«Что скажут соседи / родственники / коллеги»</strong></p>
+        <p>«В селе все друг друга знают, увидят — засмеют. Зачем я вообще это начала. Что обо мне подумает мама, школьная подруга, бывший начальник».</p>
+      </div>
+      <div class="compare-card compare-good">
+        <div class="compare-header">Реальный взгляд</div>
+        <p><strong>«Всем не угодишь»</strong></p>
+        <p>Эльвира быстро поняла: всем угодить нельзя. Те, кто на одной волне, остаются. Остальные уходят — это нормально. И никто не делает что-то «всем подряд».</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Чёткое правило Эльвиры</div>
+      <h3>Блог — это дополнение к жизни, а не сама жизнь</h3>
+      <p>Как только начнёте ставить виртуальный социум выше настоящего — начнутся проблемы. Семья, дом, реальные люди — всегда первичны. Блог — рядом, но не вместо.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что Эльвира делает с токсичностью</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Хейтеров — блокирует, без обсуждений</li>
+        <li>Комментарии — фильтрует по возможности, если успевает увидеть</li>
+        <li>Всё, что ухудшает эмоциональное состояние, — убирает из блога</li>
+        <li>Принцип: блог = дом. В дом не пускают тех, кому там не рады.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 05: ЧЕМ ПЛАТИТЬ -->
+  <section class="section section-alt" id="start">
+    <div class="section-label"><span class="section-num">05</span>Чем платить</div>
+    <h2 class="section-title"><span class="section-title-hl">Блог = возможность, но сначала ты отдаёшь</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Невозможно получить результат, ничего не вложив. Блог требует ресурсов — энергии, времени, денег. Только тогда он начинает отдавать обратно.</p>
+    </div>
+
+    <div class="secrets-grid">
+      <div class="secret-item">
+        <div class="secret-num">01</div>
+        <div>
+          <div class="secret-title">Энергия</div>
+          <div class="secret-desc">Снимать, монтировать, отвечать в директе — это реальная работа. Без энергии она быстро становится мукой.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">02</div>
+        <div>
+          <div class="secret-title">Время</div>
+          <div class="secret-desc">Час в день минимум. Сразу заложите это в расписание, иначе блог будет жить по остаточному принципу — и не вырастет.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">03</div>
+        <div>
+          <div class="secret-title">Деньги</div>
+          <div class="secret-desc">Свет, штатив, телефон с хорошей камерой, базовое оформление. Не миллионы, но какие-то вложения — нужны.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">04</div>
+        <div>
+          <div class="secret-title">Доверие</div>
+          <div class="secret-desc">Самый ценный «капитал». Его не купить рекламой — только заработать честным, последовательным контентом и работой с аудиторией.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Главное правило аутентичности.</strong> Не играть чужую роль. Это может работать в самом начале, но в итоге неизбежно приведёт к выгоранию. Вы не обязаны быть идеальной, вы должны быть собой.
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">Что вы получаете в обмен</div>
+      <div class="formula-steps">
+        <span class="formula-step">Энергия + Время + Деньги</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step">Доверие аудитории</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step" style="background: rgba(196,245,66,0.2); color: var(--accent);">Блог кормит, вдохновляет, поддерживает</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 06: ГЛОССАРИЙ -->
+  <section class="section section-alt" id="glossary">
+    <div class="section-label"><span class="section-num">06</span>Глоссарий</div>
+    <h2 class="section-title"><span class="section-title-hl">Глоссарий урока</span></h2>
+    <hr class="section-hr">
+
+    <div class="glossary">
+      <div class="glossary-item">
+        <div class="glossary-term">Аутентичность</div>
+        <div class="glossary-def">Способ вести блог из своего настоящего голоса и реального быта, без игры в роль эксперта или копирования чужих стилей. Самая крепкая основа долгосрочного роста и монетизации.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Лайв-контент</div>
+        <div class="glossary-def">Контент, который естественно вплетается в день автора: повседневность, семья, быт, процессы. Без постановочных съёмок, без контент-плана. Главный формат Эльвиры.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Начать с нуля</div>
+        <div class="glossary-def">Осознанное решение оставить старый блог и завести новый, когда старая ниша стала тесной. Не катастрофа, а новый этап. Опыт старого блога остаётся с вами.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Защита ниши аудиторией</div>
+        <div class="glossary-def">Реакция подписчиков, когда автор начинает выходить за рамки темы, на которую они подписывались. Не их вина — они защищают свой запрос. Лучше принять и решить, куда идти дальше.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Практика «плюшки vs риски»</div>
+        <div class="glossary-def">Упражнение от Эльвиры: на одном листе записать всё, что блог может дать, на другом — что рискуете потерять, если не начнёте. Сравнение быстро снимает страх осуждения.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Блог как дополнение</div>
+        <div class="glossary-def">Правило: блог — это дополнение к жизни, а не сама жизнь. Реальный социум первичен. Виртуальный — рядом, но не вместо. Без этого правила быстро наступают проблемы.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Главный ресурс блога</div>
+        <div class="glossary-def">Это вы. Не команда, не продюсер, не контент-план, не алгоритмы. Себя нужно беречь и не загонять — иначе блог станет источником стресса, а не дохода.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАДАНИЕ НА РЕФЛЕКСИЮ -->
+  <section class="section" id="reflection">
+    <div class="reflection">
+      <div class="reflection-label">Задание на рефлексию</div>
+      <h3>Начать с нуля не страшно</h3>
+      <p>Ответьте письменно на вопросы — можно кратко, можно развёрнуто:</p>
+      <ul class="reflection-questions">
+        <li>Что бы я выбрала, если бы начинала блог с нуля сегодня? (Тема, формат, подача)</li>
+        <li>Что меня останавливает или пугает в блогинге сейчас?</li>
+        <li>Что даёт мне блог, если я веду его по душе, а не «как надо»?</li>
+        <li>Какое одно правило я хочу напоминать себе, когда теряю уверенность?</li>
+      </ul>
+      <div class="reflection-note">
+        <strong>Памятка к заданию на рефлексию.</strong> Это задание не проверяется куратором и не требует проверки. Рефлексия — это ваш личный инструмент осознания и роста. Она помогает остановиться, переосмыслить путь, зафиксировать инсайты и честно ответить себе: что работает, что мешает, что хочется изменить. Рефлексируйте для себя 😌
+      </div>
+    </div>
+  </section>
+
+  <!-- СНОСКА -->
+  <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.55; color: var(--ink-3); font-family: var(--font-body);">
+    <p style="margin: 0;"><span style="color: var(--ink-2); font-weight: 700; margin-right: 4px;">*</span> Instagram принадлежит компании Meta, признанной экстремистской и запрещённой на территории Российской Федерации.</p>
+  </footer>
+
+</div>
+
+<script>
+  function navTo(id) {
+    const el = document.getElementById(id);
+    if (el) { window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' }); }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const sections = ['intro','two-starts','live','fear','start','glossary','reflection'];
+    const idx = sections.indexOf(id);
+    if (idx > -1) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  }
+  window.addEventListener('scroll', () => {
+    const sections = ['intro','two-starts','live','fear','start','glossary','reflection'];
+    const offset = 120;
+    let current = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY + offset >= el.offsetTop) current = i;
+    });
+    document.querySelectorAll('.nav-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === Math.min(current, 6));
+    });
+  });
+</script>
+
+</body>
+</html>

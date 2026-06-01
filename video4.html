@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Библиотека опыта амбассадоров — Как набрать 127К в Дзене без видео и нейросетей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --bg-soft:#F5F6F7; --bg-muted:#EDEEF0; --ink:#1A1A1A; --ink-2:#4A4D52; --ink-3:#8A8E94; --line:#E4E6E9; --accent:#C4F542; --accent-strong:#B8E83D; --accent-ink:#0F1A00; --font-display:'Unbounded',ui-sans-serif,system-ui,sans-serif; --font-body:'Manrope',ui-sans-serif,system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace; --radius-sm:10px; --radius-md:16px; --radius-lg:24px; --radius-pill:999px; --shadow-sm:0 1px 2px rgba(16,18,20,.04),0 1px 1px rgba(16,18,20,.03); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: 56px 32px 48px; }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; display: block; }
+  .title-block { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+  .stamp { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; margin-top: 10px; }
+  .title-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
+  .hero-lead { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+  .chip-dot.accent { background: var(--accent); }
+
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 32px; }
+  .nav-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2px; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--ink-2); border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; border-radius: 8px 8px 0 0; }
+  .nav-btn:hover { color: var(--ink); background: var(--bg-muted); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); background: transparent; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--accent-ink); transition: background .15s, color .15s; }
+  .nav-btn.active .nav-num { background: var(--accent); color: var(--accent-ink); }
+
+  .page-wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 100px; }
+  .section { padding-top: 60px; }
+  .section-alt { margin: 48px -32px 0; padding: 48px 32px 8px; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-alt + .section { padding-top: 60px; }
+  @media (max-width: 640px) { .section-alt { margin: 48px -20px 0; padding: 40px 20px 8px; } }
+  .section-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+  .section-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--ink-3); flex-shrink: 0; letter-spacing: 0; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .section-title-hl { background-image: linear-gradient(transparent 52%, var(--accent) 52%, var(--accent) 94%, transparent 94%); padding: 0 3px; }
+  .section-hr { height: 1px; background: var(--line); border: none; margin: 20px 0 28px; }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card h3 { font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 10px; line-height: 1.3; }
+  .card p, .card li { color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+
+  .key-point { display: flex; gap: 16px; background: var(--bg-soft); border-radius: var(--radius-md); padding: 18px 22px; border-left: 3px solid var(--accent); margin-bottom: 16px; }
+  .key-point-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+  .key-point p { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+  .formula { background: var(--ink); color: #fff; border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 16px; }
+  .formula-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8E94; margin-bottom: 10px; }
+  .formula-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .formula-step { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
+  .formula-arrow { color: var(--accent); font-family: var(--font-mono); font-size: 16px; }
+
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .compare-card { border-radius: var(--radius-md); padding: 20px; font-size: 14px; line-height: 1.6; }
+  .compare-bad { background: #FFF5F5; border: 1px solid #FCCACA; }
+  .compare-good { background: #F5FEE0; border: 1px solid #D4F097; }
+  .compare-header { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .compare-bad .compare-header { color: #C03030; }
+  .compare-good .compare-header { color: #4A8000; }
+  .compare-card p { color: #444; margin-bottom: 8px; }
+  .compare-card p:last-child { margin-bottom: 0; }
+
+  .headlines-list { list-style: none; display: grid; gap: 8px; margin-bottom: 16px; }
+  .headlines-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--bg-soft); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; color: var(--ink); border: 1px solid var(--line); }
+  .headlines-list li::before { content: '—'; font-family: var(--font-mono); color: var(--accent-strong); font-weight: 700; flex-shrink: 0; }
+
+  .steps-list { list-style: none; counter-reset: step; display: grid; gap: 0; }
+  .steps-list li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-3); padding-top: 2px; }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  .callout-warn { background: #FFFBEB; border: 1px solid #F0D080; border-left: 3px solid #E0A000; border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: #5A4500; margin-bottom: 16px; line-height: 1.6; }
+  .callout-warn strong { color: #3A2E00; }
+
+  .secrets-grid { display: grid; gap: 12px; }
+  .secret-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: start; }
+  .secret-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .secret-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .secret-desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .glossary { display: grid; gap: 10px; }
+  .glossary-item { padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .glossary-term { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+  .glossary-def { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .divider { display: flex; align-items: center; gap: 14px; margin: 24px 0; color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat-card { padding: 18px 20px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--ink); }
+  .stat-label { font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+
+  .hl { background: var(--accent); color: var(--accent-ink); padding: 1px 7px; border-radius: 5px; font-weight: 600; }
+  .hl-line { display: inline; background-image: linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%); padding: 0 2px; font-weight: 600; }
+
+  /* ——— ЗАДАНИЕ НА РЕФЛЕКСИЮ ——— */
+  .reflection { background: #E8F5BD; color: var(--accent-ink); border-radius: var(--radius-lg); padding: 36px; margin-top: 32px; box-shadow: 0 4px 16px rgba(196,245,66,0.20); }
+  .reflection-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); opacity: 0.7; margin-bottom: 14px; font-weight: 700; }
+  .reflection h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.2; margin-bottom: 18px; color: var(--accent-ink); letter-spacing: -0.01em; }
+  .reflection p { color: var(--accent-ink); font-size: 15px; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+  .reflection .reflection-questions { list-style: none; margin: 0 0 18px 0; padding: 0; display: grid; gap: 12px; }
+  .reflection .reflection-questions li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: var(--accent-ink); font-weight: 600; }
+  .reflection .reflection-questions li::before { content: '—'; font-family: var(--font-mono); font-weight: 700; color: var(--accent-ink); flex-shrink: 0; padding-top: 1px; }
+  .reflection .reflection-hint { font-size: 14px; line-height: 1.5; color: var(--accent-ink); opacity: 0.75; font-weight: 500; margin-left: 24px; margin-top: -4px; margin-bottom: 14px; }
+  .reflection .reflection-note { background: rgba(15,26,0,0.08); border-radius: var(--radius-md); padding: 18px 22px; margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--accent-ink); font-weight: 500; }
+  .reflection .reflection-note strong { font-weight: 700; }
+
+  .section-alt .card,
+  .section-alt .stat-card { background: var(--bg); }
+  .section-alt .secret-item { background: var(--bg); }
+  .section-alt .glossary-item { background: var(--bg); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 32px; }
+    .page-wrap { padding: 0 20px 80px; }
+    .nav-bar { padding: 0 20px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .title-block { grid-template-columns: 1fr; gap: 12px; }
+    .stamp { margin-top: 0; }
+    .formula-steps { flex-direction: column; align-items: flex-start; }
+    .reflection { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля</span>
+    <div class="title-block">
+      <span class="stamp">Библиотека опыта амбассадоров</span>
+      <span class="title-text">Как набрать 127К в Дзене без видео и нейросетей</span>
+    </div>
+    <p class="hero-lead">Светлана начала вести текстовый блог в декрете. Целый год вообще не возвращалась после первого провала — и за три года выросла до 127 тысяч подписчиков. Она рассказывает, как писать так, чтобы тебя читали, и как следовать своим ценностям.</p>
+    <div class="meta-chips">
+      <span class="chip"><span class="chip-dot accent"></span>Светлана «Язва Алтайская» — автор Дзен-блога</span>
+      <span class="chip"><span class="chip-dot"></span>0 → 127К за 3 года</span>
+      <span class="chip"><span class="chip-dot"></span>Текст, без видео и сторис</span>
+      <span class="chip"><span class="chip-dot"></span>Без нейросетей</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navTo('intro')"><span class="nav-num">1</span> Главное</button>
+    <button class="nav-btn" onclick="navTo('comeback')"><span class="nav-num">2</span> Год тишины</button>
+    <button class="nav-btn" onclick="navTo('why-dzen')"><span class="nav-num">3</span> Почему Дзен</button>
+    <button class="nav-btn" onclick="navTo('principles')"><span class="nav-num">4</span> Живой текст</button>
+    <button class="nav-btn" onclick="navTo('money')"><span class="nav-num">5</span> Монетизация</button>
+    <button class="nav-btn" onclick="navTo('glossary')"><span class="nav-num">6</span> Глоссарий</button>
+    <button class="nav-btn" onclick="navTo('reflection')"><span class="nav-num">7</span> Рефлексия</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- СЕКЦИЯ 01: ГЛАВНОЕ -->
+  <section class="section" id="intro">
+    <div class="section-label"><span class="section-num">01</span>Главное</div>
+    <h2 class="section-title"><span class="section-title-hl">Текст — это не «несерьёзно». Это работающий формат с прямой монетизацией</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Главное</div>
+      <p>Дзен — единственная российская платформа, где можно зарабатывать на длинных текстах. Не нужно быть на связи 24/7, снимать сторис, делать видео. Главное — писать.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">0 → 127К</div>
+        <div class="stat-label">подписчиков за три года ведения текстового блога</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">300 000 ₽</div>
+        <div class="stat-label">максимальная сумма дохода с Дзена за месяц</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">×N</div>
+        <div class="stat-label">доход с Дзена сейчас превышает зарплату на основной работе</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">С чего начиналось</div>
+      <h3>Декрет, любовь к текстам и страх «никому не нужно»</h3>
+      <p>Светлана была в декрете, листала Дзен как читатель. Заметила, что авторы зарабатывают на текстах — выкладывают скриншоты доходов. Решила попробовать. <span class="hl-line">«Я всегда любила писать, но на широкую публику свои тексты не выкладывала — считала, что это несерьёзно и никому не надо»</span>.</p>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Кому этот урок.</strong> Тем, кто любит писать, но боится начать. Тем, кто не хочет сниматься в кадре. Тем, кто думает, что блог — это обязательно видео и сторис. Дзен показывает: <strong>можно иначе</strong>.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 02: ГОД ТИШИНЫ -->
+  <section class="section" id="comeback">
+    <div class="section-label"><span class="section-num">02</span>Год тишины</div>
+    <h2 class="section-title"><span class="section-title-hl">Закрыла блог на год — потом вернулась и поняла принцип</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Дзен — это не «написал одну статью и жди». Здесь нужно писать много и регулярно. Девиз самой платформы: <span class="hl-line">«Пишите больше, пишите лучше»</span>.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 01 · Первая попытка</div>
+      <h3>Несколько статей, потом — ничего</h3>
+      <p>Светлана написала несколько текстов: приветственный («Разрешите представиться — Язва Алтайская») и пара жизненных зарисовок. Спокойно закрыла блог, стала ждать аудиторию.</p>
+      <p style="margin-top: 8px;">Через какое-то время зашла — <strong>ноль подписчиков, ноль реакций</strong>. Расстроилась, обиделась, закрыла блог. На целый год.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 02 · Возвращение</div>
+      <h3>«А почему не я?»</h3>
+      <p>Светлана продолжала читать Дзен. Через год снова увидела скриншоты заработков — и удивилась, насколько они выросли у тех же авторов. Подумала: <span class="hl-line">«Если получается у кого-то — почему не получится у меня?»</span></p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 03 · Осознанное возвращение</div>
+      <h3>Анализ других блогов, регулярность, понимание принципа</h3>
+      <p>На этот раз Светлана подошла осознанно: стала <strong>анализировать другие блоги</strong>, поняла, как работают алгоритмы. Главный вывод — стабильность. Регулярная публикация — ключ к попаданию в ленту.</p>
+      <p style="margin-top: 8px;">Через две недели после возвращения — <span class="hl-line">10 тысяч минут прочтений</span>. Это был порог монетизации тогда.</p>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">Формула роста в Дзене</div>
+      <div class="formula-steps">
+        <span class="formula-step">Писать чаще</span>
+        <span class="formula-arrow">+</span>
+        <span class="formula-step">Писать лучше</span>
+        <span class="formula-arrow">+</span>
+        <span class="formula-step">Простым языком</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step" style="background: rgba(196,245,66,0.2); color: var(--accent);">алгоритм + читатель видят</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 03: ПОЧЕМУ ДЗЕН -->
+  <section class="section section-alt" id="why-dzen">
+    <div class="section-label"><span class="section-num">03</span>Почему Дзен</div>
+    <h2 class="section-title"><span class="section-title-hl">Преимущества Дзена для тех, кто любит писать</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>Светлана пробовала вести блоги в Telegram, ВК, Одноклассниках. Везде нужно быть на связи 24/7, выкладывать сторис, быть в кадре. Это «не моё». Дзен — другой формат.</p>
+    </div>
+
+    <div class="secrets-grid">
+      <div class="secret-item">
+        <div class="secret-num">01</div>
+        <div>
+          <div class="secret-title">Текстовый формат</div>
+          <div class="secret-desc">Главное — содержимое и смысл. Не нужно снимать рилсы, не нужно думать о визуале. Только текст, как любите.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">02</div>
+        <div>
+          <div class="secret-title">Дзен сам продвигает статьи</div>
+          <div class="secret-desc">В отличие от Instagram* и Telegram, в Дзене не нужно покупать рекламу. Алгоритм анализирует ваши тексты и сам подбирает аудиторию. Регулярные публикации = автоматическое расширение охватов.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">03</div>
+        <div>
+          <div class="secret-title">Монетизация встроена в платформу</div>
+          <div class="secret-desc">Дзен сам платит авторам за просмотры. Нет необходимости с самого старта искать рекламодателей. Прошёл порог дочитываний — деньги пошли автоматически.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">04</div>
+        <div>
+          <div class="secret-title">Не нужно быть «на связи 24/7»</div>
+          <div class="secret-desc">Нет ежедневных сторис, директа, прямых эфиров. Написала статью — выложила. Это формат для интровертов и людей с другими делами в жизни.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">05</div>
+        <div>
+          <div class="secret-title">Аудитория приходит сама</div>
+          <div class="secret-desc">Не нужно «зазывать» через анонсы у других блогеров. Алгоритм Дзена — самая большая «реклама» для каждого автора.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">06</div>
+        <div>
+          <div class="secret-title">Аналогов нет в России</div>
+          <div class="secret-desc">Для длинных текстов и лонгридов в русскоязычном интернете аналогов Дзену пока нет. Если любите писать — это лучшая платформа для монетизации этого навыка.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 04: ЖИВОЙ ТЕКСТ -->
+  <section class="section" id="principles">
+    <div class="section-label"><span class="section-num">04</span>Живой текст</div>
+    <h2 class="section-title"><span class="section-title-hl">Принципы текста, который читают</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>Блог — не научный журнал. Это место, куда люди приходят отдыхать. Нужно писать простым языком, каким мы разговариваем. Читатели чувствуют, когда текст «для галочки», и не дочитывают.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 01 · Простой язык</div>
+      <h3>Без заумных слов и канцелярских оборотов</h3>
+      <p>Шаблонные тексты с искусственными оборотами никого не интересуют. <span class="hl-line">Пишите, как разговариваете</span>: понятно, осмысленно, простыми словами. Читатель отдыхает — не учится новой бюрократии.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 02 · Живые тексты сильнее идеальных</div>
+      <h3>Искренность побеждает шлифовку</h3>
+      <p>Тексты, написанные с душой, отличаются мгновенно. Живой диалог никогда не уступит «идеальному». К вам в блог идут <strong>за эмоциями</strong>, а не за сухими фактами — факты есть в любой новостной ленте.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 03 · Регулярность важнее идеальности</div>
+      <h3>Пара-тройка раз в неделю — минимум</h3>
+      <p>Каждый день качественно писать сложно. Но 2–3 текста в неделю — реально и достаточно. Регулярность — это <span class="hl-line">время + силы + эмоциональная вовлечённость</span>. Без них блог быстро гаснет.</p>
+    </div>
+
+    <div class="divider">Почему НЕ нужно использовать нейросети</div>
+
+    <div class="card">
+      <div class="card-label">Личный опыт Светланы</div>
+      <h3>«Написала текст через ИИ — в душе ничего не шевельнулось»</h3>
+      <p>Светлана пробовала сгенерировать текст через ИИ по своим параметрам. Прочитала — <span class="hl-line">сухо, безэмоционально, мертво</span>. Только факты: пришёл, ушёл, повернулся. Ни изюминки, ни деталей, ни голоса.</p>
+      <p style="margin-top: 8px;">«Читатели сразу чувствуют фальшь, они сразу чувствуют, что это не ваш текст, и они не будут его читать».</p>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Дзен официально ограничивает ИИ-тексты.</strong> Платформа заинтересована в живых авторских материалах. Если тексты шаблонные и безразличные, алгоритм видит низкую вовлечённость — и перестаёт рекомендовать такие статьи. Двойной удар: и читатели не читают, и алгоритм не показывает.
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <div class="compare-header">Слабый текст</div>
+        <p><strong>Шаблонный + ИИ</strong></p>
+        <p>«Сегодня я хочу поделиться важной информацией. Многие задаются вопросом, как поступать в подобной ситуации. Следует отметить, что существует несколько эффективных подходов. Таким образом, можно сделать вывод…»</p>
+        <p style="color:#C03030; font-size:12px; font-weight:600; margin-top:8px;">Канцелярит, сухость, никакого голоса. Дзен ограничит, читатель закроет.</p>
+      </div>
+      <div class="compare-card compare-good">
+        <div class="compare-header">Живой текст</div>
+        <p><strong>Простой + авторский</strong></p>
+        <p>«Знаете, я долго не могла понять, что не так. Вроде делаешь всё правильно — а толку ноль. И вот однажды утром, заваривая чай, поняла…»</p>
+        <p style="color:#4A8000; font-size:12px; font-weight:600; margin-top:8px;">Голос автора, деталь (чай), интрига. Хочется читать дальше.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 05: МОНЕТИЗАЦИЯ -->
+  <section class="section section-alt" id="money">
+    <div class="section-label"><span class="section-num">05</span>Монетизация</div>
+    <h2 class="section-title"><span class="section-title-hl">Как Дзен платит авторам</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Сначала 3–5 тысяч в месяц. Потом, с ростом количества публикаций и аудитории, — суммы кратно вырастают. Максимальный месяц у Светланы — 300 тысяч рублей.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Способ 01 · Оплата за дочитывания</div>
+      <h3>Автоматическая встроенная монетизация</h3>
+      <p>Дзен платит за время, проведённое читателями в ваших статьях. Чем больше человек остаётся в тексте, чем больше комментирует, лайкает, возвращается отвечать в комментариях, — <span class="hl-line">тем больше Дзен платит автору</span>.</p>
+      <p style="margin-top: 8px;">Это означает: <strong>сильнее «зацепить» текстом = больше дохода</strong>. Длина и глубина читаются буквально, в минутах.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Способ 02 · Прямая нативная реклама</div>
+      <h3>Рекламодатели сами выходят на автора</h3>
+      <p>Когда у вас достаточно подписчиков и активная лояльная аудитория, бренды начинают писать сами и предлагать рекламные интеграции. <span class="hl-line">Это второй основной источник дохода в Дзене</span>.</p>
+      <p style="margin-top: 8px;">Но важно: аудитория может реагировать на рекламу негативно, поэтому нативность и подбор партнёров — критичны.</p>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">Эволюция дохода Светланы</div>
+      <div class="formula-steps">
+        <span class="formula-step">10 000 минут — порог</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step">3–5 тыс ₽/мес</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step">больше публикаций</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step" style="background: rgba(196,245,66,0.2); color: var(--accent);">300 тыс ₽/мес — пик</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Главные выводы Светланы</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Не сдаваться после первых неудач — год тишины не повод бросать навсегда</li>
+        <li>Регулярность — ключ к успеху, 2–3 текста в неделю минимум</li>
+        <li>Живые тексты работают лучше идеальных — пишите простым языком</li>
+        <li>Нейросети — не помощник, а самосаботаж: и читатели, и Дзен видят</li>
+        <li>Если любите писать — попробуйте Дзен, аналогов в России для лонгридов нет</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 06: ГЛОССАРИЙ -->
+  <section class="section section-alt" id="glossary">
+    <div class="section-label"><span class="section-num">06</span>Глоссарий</div>
+    <h2 class="section-title"><span class="section-title-hl">Глоссарий урока</span></h2>
+    <hr class="section-hr">
+
+    <div class="glossary">
+      <div class="glossary-item">
+        <div class="glossary-term">Дзен (Яндекс.Дзен)</div>
+        <div class="glossary-def">Российская платформа для длинных текстов и видео, с алгоритмическим продвижением и встроенной монетизацией. Аналогов для лонгридов в русскоязычном интернете нет.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Минуты дочитываний</div>
+        <div class="glossary-def">Метрика Дзена, по которой считается доход автора. Чем больше времени читатели проводят в ваших текстах, тем больше платит платформа. Был порог 10 000 минут — для подключения монетизации.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Принцип «больше и лучше»</div>
+        <div class="glossary-def">Девиз Дзена и главный принцип роста: писать чаще и качественнее. Алгоритм поднимает регулярных авторов, читатели возвращаются к тем, у кого есть свежий контент каждые 2–3 дня.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Живой текст</div>
+        <div class="glossary-def">Текст, написанный простым разговорным языком, с авторским голосом, деталями и эмоциями. Противоположность «шаблонному» или сгенерированному ИИ — читатель различает разницу мгновенно.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Ограничение ИИ-текстов</div>
+        <div class="glossary-def">Политика Дзена: тексты, сгенерированные нейросетями, получают меньшие показы, потому что алгоритм видит низкую вовлечённость аудитории. Использовать ИИ для статей в Дзене — самосаботаж.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Встроенная монетизация</div>
+        <div class="glossary-def">Способ, когда платформа сама платит автору за просмотры и дочитывания, без поиска рекламодателей. Главное преимущество Дзена для начинающих авторов.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Нативная реклама</div>
+        <div class="glossary-def">Прямое размещение рекламной интеграции в статью, когда бренд приходит к автору и предлагает сотрудничество. Второй основной источник дохода в Дзене — подключается, когда есть активная лояльная аудитория.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАДАНИЕ НА РЕФЛЕКСИЮ -->
+  <section class="section" id="reflection">
+    <div class="reflection">
+      <div class="reflection-label">Задание на рефлексию</div>
+      <h3>«Если бы я не сдался(сь)…»</h3>
+      <p>Ответьте письменно на 4 вопроса — можно кратко, можно развёрнуто, как пойдёт:</p>
+      <ul class="reflection-questions">
+        <li>Что из истории амбассадора вас вдохновило сильнее всего — и почему?</li>
+      </ul>
+      <div class="reflection-hint">Например: возвращение в блог, рост без видео, регулярность, отказ от нейросетей.</div>
+      <ul class="reflection-questions">
+        <li>Какие из её выводов вы хотите взять для себя?</li>
+      </ul>
+      <div class="reflection-hint">Выберите 1–2 и поясните, как планируете применять.</div>
+      <ul class="reflection-questions">
+        <li>Что вам мешает сейчас вести текстовый блог регулярно?</li>
+      </ul>
+      <div class="reflection-hint">Назовите 1–2 барьера — внутренние или внешние.</div>
+      <ul class="reflection-questions">
+        <li>Если бы вы вели блог без страха и сомнений, что бы публиковали?</li>
+      </ul>
+      <div class="reflection-hint">Формат, тема, стиль, частота.</div>
+      <div class="reflection-note">
+        <strong>Памятка к заданию на рефлексию.</strong> Это задание не проверяется куратором и не требует проверки. Рефлексия — это ваш личный инструмент осознания и роста. Она помогает остановиться, переосмыслить путь, зафиксировать инсайты и честно ответить себе: что работает, что мешает, что хочется изменить. Рефлексируйте для себя 😌
+      </div>
+    </div>
+  </section>
+
+  <!-- СНОСКА -->
+  <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.55; color: var(--ink-3); font-family: var(--font-body);">
+    <p style="margin: 0;"><span style="color: var(--ink-2); font-weight: 700; margin-right: 4px;">*</span> Instagram принадлежит компании Meta, признанной экстремистской и запрещённой на территории Российской Федерации.</p>
+  </footer>
+
+</div>
+
+<script>
+  function navTo(id) {
+    const el = document.getElementById(id);
+    if (el) { window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' }); }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const sections = ['intro','comeback','why-dzen','principles','money','glossary','reflection'];
+    const idx = sections.indexOf(id);
+    if (idx > -1) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  }
+  window.addEventListener('scroll', () => {
+    const sections = ['intro','comeback','why-dzen','principles','money','glossary','reflection'];
+    const offset = 120;
+    let current = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY + offset >= el.offsetTop) current = i;
+    });
+    document.querySelectorAll('.nav-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === Math.min(current, 6));
+    });
+  });
+</script>
+
+</body>
+</html>

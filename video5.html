@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Библиотека опыта амбассадоров — Как вести блог без напряжения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#FFFFFF; --bg-soft:#F5F6F7; --bg-muted:#EDEEF0; --ink:#1A1A1A; --ink-2:#4A4D52; --ink-3:#8A8E94; --line:#E4E6E9; --accent:#C4F542; --accent-strong:#B8E83D; --accent-ink:#0F1A00; --font-display:'Unbounded',ui-sans-serif,system-ui,sans-serif; --font-body:'Manrope',ui-sans-serif,system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace; --radius-sm:10px; --radius-md:16px; --radius-lg:24px; --radius-pill:999px; --shadow-sm:0 1px 2px rgba(16,18,20,.04),0 1px 1px rgba(16,18,20,.03); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); color: var(--ink); background: var(--bg); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  .hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); padding: 56px 32px 48px; }
+  .hero-inner { max-width: 880px; margin: 0 auto; }
+  .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 20px; display: block; }
+  .title-block { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+  .stamp { display: inline-flex; align-items: center; justify-content: center; padding: 8px 14px; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; margin-top: 10px; }
+  .title-text { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.5vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
+  .hero-lead { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); max-width: 720px; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); flex-shrink: 0; }
+  .chip-dot.accent { background: var(--accent); }
+
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); padding: 0 32px; }
+  .nav-inner { max-width: 880px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2px; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 7px; padding: 12px 12px; font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--ink-2); border: none; background: transparent; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color .15s, border-color .15s, background .15s; border-radius: 8px 8px 0 0; }
+  .nav-btn:hover { color: var(--ink); background: var(--bg-muted); }
+  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); background: transparent; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--accent-ink); transition: background .15s, color .15s; }
+  .nav-btn.active .nav-num { background: var(--accent); color: var(--accent-ink); }
+
+  .page-wrap { max-width: 880px; margin: 0 auto; padding: 0 32px 100px; }
+  .section { padding-top: 60px; }
+  .section-alt { margin: 48px -32px 0; padding: 48px 32px 8px; background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .section-alt + .section { padding-top: 60px; }
+  @media (max-width: 640px) { .section-alt { margin: 48px -20px 0; padding: 40px 20px 8px; } }
+  .section-label { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; margin-bottom: 6px; }
+  .section-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--ink-3); flex-shrink: 0; letter-spacing: 0; }
+  .section-title { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .section-title-hl { background-image: linear-gradient(transparent 52%, var(--accent) 52%, var(--accent) 94%, transparent 94%); padding: 0 3px; }
+  .section-hr { height: 1px; background: var(--line); border: none; margin: 20px 0 28px; }
+
+  .card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 24px 28px; box-shadow: var(--shadow-sm); margin-bottom: 16px; }
+  .card-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
+  .card h3 { font-family: var(--font-body); font-weight: 700; font-size: 18px; margin-bottom: 10px; line-height: 1.3; }
+  .card p, .card li { color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+
+  .key-point { display: flex; gap: 16px; background: var(--bg-soft); border-radius: var(--radius-md); padding: 18px 22px; border-left: 3px solid var(--accent); margin-bottom: 16px; }
+  .key-point-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; padding-top: 3px; flex-shrink: 0; }
+  .key-point p { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.55; color: var(--ink); }
+
+  .formula { background: var(--ink); color: #fff; border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 16px; }
+  .formula-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A8E94; margin-bottom: 10px; }
+  .formula-steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+  .formula-step { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 8px; white-space: nowrap; }
+  .formula-arrow { color: var(--accent); font-family: var(--font-mono); font-size: 16px; }
+
+  .headlines-list { list-style: none; display: grid; gap: 8px; margin-bottom: 16px; }
+  .headlines-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: var(--bg-soft); border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; color: var(--ink); border: 1px solid var(--line); }
+  .headlines-list li::before { content: '—'; font-family: var(--font-mono); color: var(--accent-strong); font-weight: 700; flex-shrink: 0; }
+
+  .steps-list { list-style: none; counter-reset: step; display: grid; gap: 0; }
+  .steps-list li { counter-increment: step; display: grid; grid-template-columns: 40px 1fr; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .steps-list li:last-child { border-bottom: none; }
+  .steps-list li::before { content: counter(step, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-3); padding-top: 2px; }
+  .step-title { font-weight: 700; font-size: 15px; margin-bottom: 3px; }
+  .step-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+
+  .callout-warn { background: #FFFBEB; border: 1px solid #F0D080; border-left: 3px solid #E0A000; border-radius: var(--radius-md); padding: 16px 20px; font-size: 14px; color: #5A4500; margin-bottom: 16px; line-height: 1.6; }
+  .callout-warn strong { color: #3A2E00; }
+
+  .secrets-grid { display: grid; gap: 12px; }
+  .secret-item { display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); align-items: start; }
+  .secret-num { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--accent-ink); background: var(--accent); border-radius: 8px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .secret-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .secret-desc { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .glossary { display: grid; gap: 10px; }
+  .glossary-item { padding: 16px 20px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .glossary-term { font-weight: 700; font-size: 15px; margin-bottom: 6px; color: var(--ink); }
+  .glossary-def { font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+
+  .divider { display: flex; align-items: center; gap: 14px; margin: 24px 0; color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+  .stat-card { padding: 18px 20px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-md); }
+  .stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 6px; color: var(--ink); }
+  .stat-label { font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+
+  .hl { background: var(--accent); color: var(--accent-ink); padding: 1px 7px; border-radius: 5px; font-weight: 600; }
+  .hl-line { display: inline; background-image: linear-gradient(transparent 55%, var(--accent) 55%, var(--accent) 92%, transparent 92%); padding: 0 2px; font-weight: 600; }
+
+  /* ——— ЗАДАНИЕ НА РЕФЛЕКСИЮ ——— */
+  .reflection { background: #E8F5BD; color: var(--accent-ink); border-radius: var(--radius-lg); padding: 36px; margin-top: 32px; box-shadow: 0 4px 16px rgba(196,245,66,0.20); }
+  .reflection-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-ink); opacity: 0.7; margin-bottom: 14px; font-weight: 700; }
+  .reflection h3 { font-family: var(--font-display); font-weight: 600; font-size: 24px; line-height: 1.2; margin-bottom: 18px; color: var(--accent-ink); letter-spacing: -0.01em; }
+  .reflection p { color: var(--accent-ink); font-size: 15px; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+  .reflection .reflection-questions { list-style: none; margin: 0 0 18px 0; padding: 0; display: grid; gap: 12px; }
+  .reflection .reflection-questions li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: var(--accent-ink); font-weight: 600; }
+  .reflection .reflection-questions li::before { content: '—'; font-family: var(--font-mono); font-weight: 700; color: var(--accent-ink); flex-shrink: 0; padding-top: 1px; }
+  .reflection .reflection-hint { font-size: 14px; line-height: 1.5; color: var(--accent-ink); opacity: 0.75; font-weight: 500; margin-left: 24px; margin-top: -4px; margin-bottom: 14px; }
+  .reflection .reflection-note { background: rgba(15,26,0,0.08); border-radius: var(--radius-md); padding: 18px 22px; margin-top: 22px; font-size: 13px; line-height: 1.6; color: var(--accent-ink); font-weight: 500; }
+  .reflection .reflection-note strong { font-weight: 700; }
+
+  .section-alt .card,
+  .section-alt .stat-card { background: var(--bg); }
+  .section-alt .secret-item { background: var(--bg); }
+  .section-alt .glossary-item { background: var(--bg); }
+
+  @media (max-width: 640px) {
+    .hero { padding: 36px 20px 32px; }
+    .page-wrap { padding: 0 20px 80px; }
+    .nav-bar { padding: 0 20px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .title-block { grid-template-columns: 1fr; gap: 12px; }
+    .stamp { margin-top: 0; }
+    .formula-steps { flex-direction: column; align-items: flex-start; }
+    .reflection { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Fitstars · Блогер с нуля</span>
+    <div class="title-block">
+      <span class="stamp">Библиотека опыта амбассадоров</span>
+      <span class="title-text">Как вести блог без напряжения</span>
+    </div>
+    <p class="hero-lead">Елена ведёт швейный блог почти 9 лет, не гонится за охватами, не живёт по контент-плану и не устраивает марафоны «30 рилс за 30 дней». Объясняет, как вести блог без выгорания, почему доверие важнее количества подписчиков и как зарабатывать на рекламе, оставаясь собой.</p>
+    <div class="meta-chips">
+      <span class="chip"><span class="chip-dot accent"></span>Елена Волобуева @lenas_sewing — Швейный блогер, 9 лет</span>
+      <span class="chip"><span class="chip-dot"></span>136К подписчиков</span>
+      <span class="chip"><span class="chip-dot"></span>Без контент-плана</span>
+      <span class="chip"><span class="chip-dot"></span>Реклама на 4 месяца вперёд</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navTo('intro')"><span class="nav-num">1</span> Главное</button>
+    <button class="nav-btn" onclick="navTo('path')"><span class="nav-num">2</span> Путь Лены</button>
+    <button class="nav-btn" onclick="navTo('burn')"><span class="nav-num">3</span> Не выгорать</button>
+    <button class="nav-btn" onclick="navTo('ads')"><span class="nav-num">4</span> Реклама без обмана</button>
+    <button class="nav-btn" onclick="navTo('own')"><span class="nav-num">5</span> Свой способ</button>
+    <button class="nav-btn" onclick="navTo('glossary')"><span class="nav-num">6</span> Глоссарий</button>
+    <button class="nav-btn" onclick="navTo('reflection')"><span class="nav-num">7</span> Рефлексия</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- СЕКЦИЯ 01: ГЛАВНОЕ -->
+  <section class="section" id="intro">
+    <div class="section-label"><span class="section-num">01</span>Главное</div>
+    <h2 class="section-title"><span class="section-title-hl">Блог можно вести в кайф — и зарабатывать без насилия над собой</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point">
+      <div class="key-point-label">Главное</div>
+      <p>Если вам некомфортно делать «как принято» — это сигнал, что вам не подходит этот путь. Можно по-другому. Гонка за миллионом подписчиков, ежедневные рилсы, маркетинговые стратегии — необязательно.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что Лена НЕ делает</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Не делает контент-план дальше чем на 1–2 дня</li>
+        <li>Не участвует в гивах, взаимных пиарах, марафонах</li>
+        <li>Не следит за охватами (только перед рекламной интеграцией)</li>
+        <li>Не ставит грандиозных целей по росту аудитории</li>
+        <li>Не делает сложные монтажи и трюковые рилсы</li>
+        <li>Не пытается изображать «идеальную» версию себя</li>
+      </ul>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">9 лет</div>
+        <div class="stat-label">ведения швейного блога, начала в декрете «как фотоальбом»</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">136К</div>
+        <div class="stat-label">подписчиков. Лена не считает себя крупным блогером — но успешным</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">×5</div>
+        <div class="stat-label">рост дохода по сравнению с прошлым годом. Реклама расписана на 4 месяца вперёд</div>
+      </div>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Главное условие.</strong> Блог Лены — её сердце и душа. Она ведёт его в первую очередь для себя. И именно это находит отклик у аудитории. Если бы пыталась «как надо» — выгорела бы. Делает «как нравится» — растёт и зарабатывает.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 02: ПУТЬ ЛЕНЫ -->
+  <section class="section" id="path">
+    <div class="section-label"><span class="section-num">02</span>Путь Лены</div>
+    <h2 class="section-title"><span class="section-title-hl">Как швейный фотоальбом стал бизнесом</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Лена не планировала становиться блогером. Просто начала шить в декрете и показывать процесс. Страница росла «между делом» — потому что Лена вела её для себя, без цели и плана.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 01 · Декрет и шитьё</div>
+      <h3>Личная страница и швейный контент вперемешку</h3>
+      <p>До декрета Лена была руководителем и профессиональным визажистом. В декрете заскучала, начала шить. Сначала выкладывала всё на личную страницу, потом швейного стало больше, чем «личного».</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 02 · Отдельная страница как фотоальбом</div>
+      <h3>«Чтобы потом посмотреть, как классно я шила в декрете»</h3>
+      <p>Лена завела отдельный аккаунт, куда скидывала процесс пошива, результаты, себя в изделиях. <span class="hl-line">Без цели вырастить блог</span>. Просто фотоальбом «на потом».</p>
+      <p style="margin-top: 8px;">Из декрета не вышла. Страница незаметно выросла, чему сама удивилась. Швейных блогеров на тот момент было немного — Лена попала в окно.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 03 · Клиенты и осознание дохода</div>
+      <h3>Сначала через сарафан, потом через блог</h3>
+      <p>Сначала клиенты на пошив приходили через знакомых — сарафанное радио. Знакомые скидывали ссылку на страницу. Потом — напрямую из соцсети. Когда стало ясно, что блог приносит работу и доход, Лена уволилась.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этап 04 · Реклама и амбассадорство</div>
+      <h3>Доход через рекламные интеграции и FitStars</h3>
+      <p>Блог рос органически — без гивов, без ВП, без таргета. Сейчас реклама расписана на 4 месяца вперёд. Лена — амбассадор FitStars уже почти 3 года: начинала с фиксированной оплаты, перешла на процент с продаж.</p>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">Как блог вырос за 9 лет</div>
+      <div class="formula-steps">
+        <span class="formula-step">Фотоальбом для себя</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step">Клиенты сарафан</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step">Клиенты из блога</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step" style="background: rgba(196,245,66,0.2); color: var(--accent);">реклама + амбассадорство</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 03: НЕ ВЫГОРАТЬ -->
+  <section class="section section-alt" id="burn">
+    <div class="section-label"><span class="section-num">03</span>Не выгорать</div>
+    <h2 class="section-title"><span class="section-title-hl">Чтобы не выгореть — нужно не вспыхивать</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>Самая большая причина выгорания — давление, которое вы сами себе создаёте. И обесценивание результата, когда он чуть меньше «ожидаемого».</p>
+    </div>
+
+    <div class="secrets-grid">
+      <div class="secret-item">
+        <div class="secret-num">01</div>
+        <div>
+          <div class="secret-title">Не вспыхивать</div>
+          <div class="secret-desc">«Сейчас как встану, как начну. 30 рилсов за 30 дней!» — на 31-й день вы уже не хотите снимать никакие рилсы. Лучше медленно и стабильно.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">02</div>
+        <div>
+          <div class="secret-title">Не обесценивать результат</div>
+          <div class="secret-desc">Ожидали +1000 подписчиков, пришло 800? 800 — это тоже офигенно. Вы работали, и получили результат. Если каждый раз обесценивать малое — рук на блог не останется.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">03</div>
+        <div>
+          <div class="secret-title">Не ставить грандиозных целей</div>
+          <div class="secret-desc">«Через месяц +1000» — это план, который вы сами себе нарисовали. И вы же будете чувствовать вину, если он не сошёлся. Лучше без таких целей — Лена их не ставит вообще.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">04</div>
+        <div>
+          <div class="secret-title">Контент-план — максимум на день-два</div>
+          <div class="secret-desc">«Я сегодня сшила — завтра показала». Никаких планов на месяц. Идея приходит в процессе — снимаю сейчас, не откладываю. Через неделю разонравится, и сценарий устареет.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">05</div>
+        <div>
+          <div class="secret-title">Не пытаться изображать «идеальное»</div>
+          <div class="secret-desc">Лена выходит в сторис с полотенцем на голове, в пижаме, в домашней одежде. «Мне 42, мне слишком много лет, чтобы что-то из себя изображать». Это и есть аутентичность.</div>
+        </div>
+      </div>
+      <div class="secret-item">
+        <div class="secret-num">06</div>
+        <div>
+          <div class="secret-title">Главное условие — регулярность без напряжения</div>
+          <div class="secret-desc">Не пропадать надолго. Денёк отдохнули — можно. Завтра вышли, рассказали что-то. Принцип: «нет ничего более быстрого, чем медленно и постоянно».</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Не делайте того, что вам не нравится.</strong> Если контент-планы и сложные монтажи вас вдохновляют — делайте. Если нет — не делайте. Подходит «как у других» не всем. Найти свой формат — половина дела.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 04: РЕКЛАМА БЕЗ ОБМАНА -->
+  <section class="section" id="ads">
+    <div class="section-label"><span class="section-num">04</span>Реклама без обмана</div>
+    <h2 class="section-title"><span class="section-title-hl">Зарабатывать на рекламе, оставаясь собой</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Принцип</div>
+      <p>Главное правило Лены — рекламирую только то, чем пользуюсь сама. Девочки даже придумали хэштег #ЛенкаФигниНеПосоветует. Это и есть капитал, которым нельзя рисковать.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 01 · Только своё</div>
+      <h3>Если не пользуюсь сама — не беру</h3>
+      <p>Лена отказывается от рекламы, которая ей не подходит. Даже если товар качественный — если <span class="hl-line">не её</span>, отказ. Принцип: «Мне моя репутация гораздо дороже. Я зарабатываю на блоге и не чувствую угрызений совести».</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 02 · Подача в своём стиле</div>
+      <h3>«Не продаю, просто рассказываю, как подружке»</h3>
+      <p>Никаких сложных рекламных подводок, экшен-рилсов «купи сейчас». Лена просто показывает, как работает вещь и почему ей понравилась. <span class="hl-line">Рекламодатели сами просят</span> сделать интеграцию в её стиле — потому что это работает лучше сухого ТЗ.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Принцип 03 · Связь с аудиторией = основа дохода</div>
+      <h3>Доверие важнее количества подписчиков</h3>
+      <p>Лена подчёркивает: сейчас рекламодатели делают <strong>фокус на микроблогах</strong>. У 1000 подписчиков с охватом 800–900 связь с аудиторией крепче, чем у 100К с охватом 5–10%. <span class="hl-line">Они продадут весь товар</span>, который рекомендуют — потому что им верят.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Этапы амбассадорства FitStars Лены</div>
+      <ul class="steps-list">
+        <li>
+          <div>
+            <div class="step-title">Фиксированная оплата на старте</div>
+            <div class="step-desc">Поначалу работала за фикс. Стабильный понятный доход без сложных расчётов.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Переход на процент с продаж</div>
+            <div class="step-desc">FitStars предложил процент. Доход кратно вырос. Сейчас Лена «уже не знает этих людей, которые покупают» — они приходят сами, прогревшись от регулярного контента.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="step-title">Догрев через личные изменения</div>
+            <div class="step-desc">Аудитория видит изменения в теле Лены, в лице, в осанке. И принимает решение «мне тоже надо». Это и есть нативный прогрев.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Хэштег #ЛенкаФигниНеПосоветует.</strong> Девочки сами начали так писать в комментариях — это маркер уровня доверия, который Лена выстроила. Этот «капитал доверия» не купить рекламой и не наработать обманом. Только годами честности.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 05: СВОЙ СПОСОБ -->
+  <section class="section section-alt" id="own">
+    <div class="section-label"><span class="section-num">05</span>Свой способ</div>
+    <h2 class="section-title"><span class="section-title-hl">Найдите свой способ коммуникации с аудиторией</span></h2>
+    <hr class="section-hr">
+
+    <div class="key-point" style="margin-bottom: 24px;">
+      <div class="key-point-label">Главное</div>
+      <p>«Найди дело по душе — и тебе ни дня не придётся работать». У каждого свой «огонёк» внутри. Не нужно копировать других — нужно открыть свой.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Найдите свою сильную сторону</div>
+      <h3>Не делай то, что «положено» — делай то, в чём ты хороша</h3>
+      <p>У кого-то получаются съёмки. У кого-то — рассказы. У кого-то — тексты. Кто-то — фотографирует и подаёт визуал. Лена любит писать тексты и фотографировать.</p>
+      <p style="margin-top: 8px;">Алгоритмы Instagram* любят рилсы — поэтому приходится их делать. Но Лена нашла свой способ: <span class="hl-line">без сложных монтажей</span>, с субтитрами и постом под ним. Работает.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что НЕ делает Лена ради хайпа</div>
+      <ul class="headlines-list" style="margin-bottom: 0;">
+        <li>Не зависит от охватов (смотрит их только для отчёта рекламодателям)</li>
+        <li>Не гонится за хайпом и интригами «я сейчас такое расскажу…»</li>
+        <li>Не делает многозначительных пауз после сторис</li>
+        <li>Не ставит цели «удвоить доход x2»</li>
+        <li>Не сравнивает себя с другими блогерами</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Что важно делегировать (а что — нет)</div>
+      <h3>«У меня нет команды, потому что я люблю это делать сама»</h3>
+      <p>Лена ведёт 4 площадки самостоятельно. Сама пишет посты, монтирует, отвечает в директ. «Это работа, но она мне приносит удовольствие». Если что-то можно делегировать — делегирует. Но не съёмку контента, не написание постов, не общение с аудиторией. <span class="hl-line">Это сердце</span>.</p>
+    </div>
+
+    <div class="formula">
+      <div class="formula-label">Формула устойчивого блога</div>
+      <div class="formula-steps">
+        <span class="formula-step">Свой способ</span>
+        <span class="formula-arrow">+</span>
+        <span class="formula-step">Без напряжения</span>
+        <span class="formula-arrow">+</span>
+        <span class="formula-step">Не врать</span>
+        <span class="formula-arrow">+</span>
+        <span class="formula-step">Регулярность</span>
+        <span class="formula-arrow">→</span>
+        <span class="formula-step" style="background: rgba(196,245,66,0.2); color: var(--accent);">кайф и доход</span>
+      </div>
+    </div>
+
+    <div class="callout-warn">
+      <strong>Главный итог.</strong> Если вести блог искренне, со своим способом и в кайф — аудитория почувствует. Подписчики рекомендуют, рекламодатели приходят сами и просят «делайте как обычно». А продаёт ваша фишка коммуникации лучше, чем любое ТЗ.
+    </div>
+  </section>
+
+  <!-- СЕКЦИЯ 06: ГЛОССАРИЙ -->
+  <section class="section section-alt" id="glossary">
+    <div class="section-label"><span class="section-num">06</span>Глоссарий</div>
+    <h2 class="section-title"><span class="section-title-hl">Глоссарий урока</span></h2>
+    <hr class="section-hr">
+
+    <div class="glossary">
+      <div class="glossary-item">
+        <div class="glossary-term">Блог без напряжения</div>
+        <div class="glossary-def">Способ ведения соцсетей, при котором автор не насилует себя «надо», не следует жёстким планам и не гонится за чужими стратегиями. Главное — кайф, регулярность и аутентичность.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">«Не вспыхивать»</div>
+        <div class="glossary-def">Принцип Лены: не загораться идеей «30 рилсов за 30 дней» или «миллион подписчиков». Большая вспышка = большое выгорание. Спокойный стабильный темп держится дольше.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Обесценивание результата</div>
+        <div class="glossary-def">Привычка считать малый прирост «недостаточным», если ожидание было больше. Главный источник выгорания. Лучше принять любой результат за «офигенный» и идти дальше.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Микроблог</div>
+        <div class="glossary-def">Блог с небольшим количеством подписчиков (например, 1000), но высоким охватом (800–900) и крепкой связью с аудиторией. Сейчас на них фокус рекламодателей — продажи там выше, чем у крупных «холодных» блогов.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">«Подругино»</div>
+        <div class="glossary-def">Стиль подачи рекламы как от подруги: не «купи сейчас», а «мне зашло, мне нравится, надо брать». Никаких рекламных подводок, экшена, призыва. Работает в разы сильнее формального ТЗ.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Капитал доверия</div>
+        <div class="glossary-def">Уровень веры аудитории в рекомендации блогера. Зарабатывается годами честности. Лена: «#ЛенкаФигниНеПосоветует» — это маркер. Терять одной плохой рекламой нельзя.</div>
+      </div>
+      <div class="glossary-item">
+        <div class="glossary-term">Свой способ коммуникации</div>
+        <div class="glossary-def">Формат подачи, который вам естественен: текст, фото, видео, голос, юмор, истории. Не нужно копировать чужой. Свой формат — главный ресурс долгосрочной устойчивости блога.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАДАНИЕ НА РЕФЛЕКСИЮ -->
+  <section class="section" id="reflection">
+    <div class="reflection">
+      <div class="reflection-label">Задание на рефлексию</div>
+      <h3>Блог без насилия над собой</h3>
+      <p>Ответьте письменно на 2 вопроса:</p>
+      <ul class="reflection-questions">
+        <li>Что в ведении блога сейчас даёт мне энергию, а что забирает?</li>
+        <li>Как я могу вести блог регулярнее, но без давления на себя?</li>
+      </ul>
+      <div class="reflection-note">
+        <strong>Памятка к заданию на рефлексию.</strong> Это задание не проверяется куратором и не требует оценки. Рефлексия помогает честно увидеть, где блог ведётся «по душе», а где — из чужого «надо». Ответьте спокойно и для себя: здесь не нужно быть идеальной, нужно быть честной 😌
+      </div>
+    </div>
+  </section>
+
+  <!-- СНОСКА -->
+  <footer style="margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 12px; line-height: 1.55; color: var(--ink-3); font-family: var(--font-body);">
+    <p style="margin: 0;"><span style="color: var(--ink-2); font-weight: 700; margin-right: 4px;">*</span> Instagram принадлежит компании Meta, признанной экстремистской и запрещённой на территории Российской Федерации.</p>
+  </footer>
+
+</div>
+
+<script>
+  function navTo(id) {
+    const el = document.getElementById(id);
+    if (el) { window.scrollTo({ top: el.offsetTop - 60, behavior: 'smooth' }); }
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const sections = ['intro','path','burn','ads','own','glossary','reflection'];
+    const idx = sections.indexOf(id);
+    if (idx > -1) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  }
+  window.addEventListener('scroll', () => {
+    const sections = ['intro','path','burn','ads','own','glossary','reflection'];
+    const offset = 120;
+    let current = 0;
+    sections.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY + offset >= el.offsetTop) current = i;
+    });
+    document.querySelectorAll('.nav-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === Math.min(current, 6));
+    });
+  });
+</script>
+
+</body>
+</html>
